@@ -1,0 +1,41 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">EMT Lab02</h1>
+            <h3 class="jumbotron-heading">All books</h3>
+        </div>
+    </section>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Book name</th>
+            <th scope="col">Category</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}" class="books">
+            <td th:text="${book.getName()}"></td>
+            <td th:text="${book.getCategory() != null}
+                            ? ${book.getCategory().getName()} : 'No Category'"></td>
+            <td class="text-right">
+                <form th:action="@{'/books/delete/{id}' (id=${book.getId()})}"
+                      th:method="DELETE">
+                    <button type="submit"
+                            class="btn btn-sm btn-danger delete-product">
+                        <i class="fa fa-trash">Delete</i>
+                    </button>
+                </form>
+
+                <a th:href="@{'/books/edit-form/{id}' (id=${book.getId()})}"
+                   class="btn btn-sm btn-info edit-product">
+                    <i class="fa fa-trash">Edit</i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="/products/add-form" class="btn btn-block btn-dark add-product-btn">
+        Add new book
+    </a>
+</div>
